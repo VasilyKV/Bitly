@@ -28,11 +28,6 @@ def is_bitlink(request_headers, bitlink):
     return response.ok
 
 
-def check_url_accessibility(input_url):
-    response = requests.get(input_url)
-    response.raise_for_status()
-
-
 def main():
     load_dotenv()
     parser = argparse.ArgumentParser(description='''Программа создает короткие ссылки, 
@@ -47,7 +42,6 @@ def main():
     url_parsed = urlparse(input_url)
     url_without_protocol = url_parsed.netloc + url_parsed.path
     try:
-        check_url_accessibility(input_url)
         if is_bitlink(request_headers, url_without_protocol):
             counter = count_clicks(request_headers, url_without_protocol)
             print('Счетчик:', counter)
