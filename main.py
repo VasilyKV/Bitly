@@ -2,6 +2,8 @@ import argparse
 import os
 from urllib.parse import urlparse
 
+import requests
+from dotenv import load_dotenv
 
 def shorten_link(request_headers, long_url):
     payload = {
@@ -32,8 +34,9 @@ def check_url_accessibility(input_url):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Программа создает короткие ссылки')
-   # parser.parse_args()
+    load_dotenv()
+    parser = argparse.ArgumentParser(description='''Программа создает короткие ссылки, 
+        при вводе короткой ссылки возвращает статистику по ней''')
     parser.add_argument('url', help='Ваше ссылка')
     args = parser.parse_args()
     token = os.getenv('TOKEN_BITLY')
